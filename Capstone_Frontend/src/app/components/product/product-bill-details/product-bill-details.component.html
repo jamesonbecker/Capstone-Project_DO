@@ -1,0 +1,38 @@
+<div class="form-container">
+  <mat-card class="form-details">
+    <mat-card-content>
+      <h1>Bill of Material ID: {{ billId }}</h1>
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        class="mat-elevation-z8"
+      >
+        <ng-container matColumnDef="part.sku">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Part</th>
+          <td mat-cell *matCellDef="let detail">{{ detail.part.sku }}</td>
+        </ng-container>
+        <ng-container matColumnDef="quantityNeeded">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Quantity Needed
+          </th>
+          <td mat-cell *matCellDef="let detail" class="table-cell-number">
+            {{ detail.quantityNeeded }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="lineTotal">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Line Total</th>
+          <td mat-cell *matCellDef="let detail" class="table-cell-number">
+            {{ detail.lineTotal }}
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          [routerLink]="['/parts', row.part.id]"
+        ></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

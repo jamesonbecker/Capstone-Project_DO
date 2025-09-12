@@ -1,0 +1,65 @@
+<div class="page-header">
+  <div class="page-header-title">
+    <a (click)="goBack()">
+      <span class="material-symbols-outlined"> arrow_back </span>
+    </a>
+    <h1>Purchase Order Details</h1>
+  </div>
+  <h2>Order Number: {{ orderId }}</h2>
+</div>
+
+<div class="main-content">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    class="mat-elevation-z8 list-table"
+  >
+    <ng-container matColumnDef="item">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sku</th>
+      <td mat-cell *matCellDef="let detail">
+        @if (detail.productId != null) {
+        {{ detail.productSku }}
+        } @else if (detail.partId != null) {
+        {{ detail.partSku }}
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantityOrdered">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Quantity Ordered
+      </th>
+      <td mat-cell *matCellDef="let detail" class="table-cell-number">
+        {{ detail.quantityOrdered }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lineTotal">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Line Total</th>
+      <td mat-cell *matCellDef="let detail" class="table-cell-number">
+        {{ detail.lineTotal }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lineDateCreated">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Created</th>
+      <td mat-cell *matCellDef="let detail">
+        {{ detail.dateCreated | date : "MM/dd/yyyy  h:mm a" }}
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <div class="form-delete-button">
+    <button
+      mat-raised-button
+      color="warn"
+      type="button"
+      (click)="onDelete()"
+      style="font-size: 16px"
+    >
+      Delete
+    </button>
+  </div>
+</div>

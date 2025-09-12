@@ -1,0 +1,75 @@
+<div class="page-header">
+  <div class="page-header-title">
+    <a (click)="goBack()">
+      <span class="material-symbols-outlined"> arrow_back </span>
+    </a>
+    <h1>Purchase Orders</h1>
+  </div>
+</div>
+
+<div class="main-content">
+  <mat-form-field class="list-search" color="accent">
+    <mat-label>Purchase Order Search</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Search for Purchase Order by Order #"
+    />
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 list-table">
+    <ng-container matColumnDef="orderNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Order #</th>
+      <td mat-cell *matCellDef="let order" class="table-cell-number">
+        {{ order.orderNumber }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="orderType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+      <td mat-cell *matCellDef="let order">{{ order.orderType }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="orderTotal">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+      <td mat-cell *matCellDef="let order" class="table-cell-number">
+        {{ order.orderTotal | currency }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateCreated">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Created</th>
+      <td mat-cell *matCellDef="let order">
+        {{ order.dateCreated | date : "MM/dd/yyyy  h:mm a" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastUpdated">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Updated</th>
+      <td mat-cell *matCellDef="let order">
+        {{ order.lastUpdated | date : "MM/dd/yyyy  h:mm a" }}
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      [routerLink]="['/purchase-orders', row.orderNumber]"
+    ></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[10, 15, 25, 50]"
+    showFirstLastButtons
+  ></mat-paginator>
+  <router-outlet></router-outlet>
+  <div class="list-button">
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="createPurchaseOrder()"
+    >
+      Create Purchase Order
+    </button>
+  </div>
+</div>

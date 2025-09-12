@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Create Bill of Material: {{ selectedProduct.sku }}</h2>
+
+<mat-dialog-content>
+  Do you want to create a Bill of Material for product number:<br>
+  {{ selectedProduct.id }}, {{ selectedProduct.sku }}
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button (click)="onCreate()" color="primary">Create</button>
+</mat-dialog-actions>

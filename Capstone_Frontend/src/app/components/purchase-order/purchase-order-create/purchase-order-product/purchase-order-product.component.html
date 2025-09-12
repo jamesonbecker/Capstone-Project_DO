@@ -1,0 +1,179 @@
+<div class="page-header">
+  <div class="page-header-title">
+    <a (click)="goBack()">
+      <span class="material-symbols-outlined"> arrow_back </span>
+    </a>
+    <h1>Create Product Purchase Order</h1>
+  </div>
+</div>
+
+<div class="main-content">
+  <div [formGroup]="purchaseOrderForm">
+    <ng-container formArrayName="detailLines">
+      <ng-container
+        *ngFor="let detailForm of detailLines.controls; let i = index"
+      >
+        <div class="order-form-row" [formGroupName]="i">
+          <!-- Product Field-->
+          <mat-form-field
+            appearance="fill"
+            color="accent"
+            subscriptSizing="dynamic"
+            class="order-form-field"
+          >
+            <input
+              matInput
+              type="text"
+              placeholder="Select Product"
+              [matAutocomplete]="auto"
+              formControlName="product"
+            />
+            <mat-autocomplete
+              #auto="matAutocomplete"
+              [displayWith]="displayProduct"
+              (optionSelected)="onOptionSelected($event.option.value)"
+            >
+              <mat-option
+                *ngFor="let product of filteredProducts | async"
+                [value]="product"
+              >
+                {{ product.sku }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="isFieldInvalid('product')">
+              <span
+                *ngIf="orderDetailsForm.get('product')?.hasError('required')"
+                >Product is required.</span
+              >
+              <span
+                *ngIf="
+                  orderDetailsForm.get('product')?.hasError('requireSelection')
+                "
+                >Must select product from list.</span
+              >
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Quantity Field -->
+          <mat-form-field
+            appearance="fill"
+            color="accent"
+            subscriptSizing="dynamic"
+            class="order-form-field-number"
+          >
+            <input
+              matInput
+              type="text"
+              formControlName="quantityOrdered"
+              required
+              placeholder="Quantity"
+              (change)="calculateTotals(i)"
+            />
+            <mat-error
+              *ngIf="
+                orderDetailsForm.get('quantityOrdered')?.invalid &&
+                (orderDetailsForm.get('quantityOrdered')?.touched ||
+                  orderDetailsForm.get('quantityOrdered')?.dirty)
+              "
+            >
+              <span
+                *ngIf="
+                  orderDetailsForm.get('quantityOrdered')?.hasError('required')
+                "
+                >Quantity is required.</span
+              >
+              <span
+                *ngIf="
+                  orderDetailsForm.get('quantityOrdered')?.hasError('pattern')
+                "
+                >Invalid character(s) used.</span
+              >
+              <span
+                *ngIf="
+                  orderDetailsForm
+                    .get('quantityOrdered')
+                    ?.hasError('negativeNumber')
+                "
+                >Must be greater than 0.</span
+              >
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Line Total Field -->
+          <mat-form-field
+            appearance="fill"
+            color="accent"
+            subscriptSizing="dynamic"
+            class="order-form-field-number"
+          >
+            <input
+              matInput
+              formControlName="lineTotal"
+              readonly
+              placeholder="Line Total"
+            />
+            <span matTextPrefix>$&nbsp;</span>
+          </mat-form-field>
+          <button mat-mini-fab color="warn" (click)="removeLine(i)">
+            <span
+              class="material-symbols-outlined"
+              style="padding: 5px 0 5px 0"
+            >
+              delete
+            </span>
+          </button>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <div class="order-button-container">
+    @if (detailLines.length == 0) {
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="addLine()"
+      class="order-button"
+    >
+      Add Line
+    </button>
+    } @else {
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="addLine()"
+      class="order-button"
+      [disabled]="orderDetailsForm.invalid"
+    >
+      Add Line
+    </button>
+    <h2>Order Total: ${{ orderTotal }}</h2>
+    }
+  </div>
+  <div class="form-button-group">
+    <div class="form-buttons">
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        style="font-size: 16px"
+        [routerLink]="['/purchase-orders']"
+        routerLinkActive="active"
+      >
+        Cancel
+      </button>
+    </div>
+    @if (detailLines.length != 0) {
+    <div class="form-buttons">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="orderDetailsForm.invalid"
+        (click)="onSubmit()"
+      >
+        Submit
+      </button>
+    </div>
+    }
+  </div>
+</div>

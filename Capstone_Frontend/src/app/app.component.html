@@ -1,0 +1,106 @@
+<mat-toolbar color="primary" class="toolbar-header">
+  <button mat-icon-button (click)="toggleMenu()">
+    <span class="material-symbols-outlined"> menu </span>
+  </button>
+  @if (isMobile) {
+    <h1>IMWA</h1>
+  } @else {
+    <h1>Inventory Management Web Application</h1>
+  }
+  <div class="spacer"></div>
+  <ng-container *ngIf="auth.isAuthenticated$ | async; then loggedOut; else loggedIn"></ng-container>
+  <ng-template #loggedIn>
+    <a mat-raised-button class="log-button" (click)="login()">Log In</a>
+  </ng-template>
+  <ng-template #loggedOut>
+    <a mat-raised-button class="log-button" (click)="logout()">Logout</a>
+  </ng-template>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container" autosize>
+  <mat-sidenav
+    class="sidenav-menu"
+    [ngClass]="!isCollapsed ? 'expanded' : ''"
+    [mode]="isMobile ? 'over' : 'side'"
+    [opened]="isMobile ? 'false' : 'true'"
+  >
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/home']" routerLinkActive="active">
+        <span class="entry">
+          <span class="material-symbols-outlined"> home </span>
+          <span *ngIf="!isCollapsed">Home</span>
+        </span>
+      </a>
+      <a
+        mat-list-item
+        *ngIf="auth.isAuthenticated$ | async"
+        [routerLink]="['/products']"
+        routerLinkActive="active"
+      >
+        <span class="entry">
+          <span class="material-symbols-outlined"> inventory_2 </span>
+          <span *ngIf="!isCollapsed">Products</span>
+        </span>
+      </a>
+      <a
+        mat-list-item
+        *ngIf="auth.isAuthenticated$ | async"
+        [routerLink]="['/parts']"
+        routerLinkActive="active"
+      >
+        <span class="entry">
+          <span class="material-symbols-outlined"> shelves </span>
+          <span *ngIf="!isCollapsed">Parts</span>
+        </span>
+      </a>
+      <a
+        mat-list-item
+        *ngIf="auth.isAuthenticated$ | async"
+        [routerLink]="['/sales-orders']"
+        routerLinkActive="active"
+      >
+        <span class="entry">
+          <span class="material-symbols-outlined"> shopping_cart </span>
+          <span *ngIf="!isCollapsed">Sales Orders</span>
+        </span>
+      </a>
+      <a
+        mat-list-item
+        *ngIf="auth.isAuthenticated$ | async"
+        [routerLink]="['/purchase-orders']"
+        routerLinkActive="active"
+      >
+        <span class="entry">
+          <span class="material-symbols-outlined"> shopping_bag </span>
+          <span *ngIf="!isCollapsed">Purchase Orders</span>
+        </span>
+      </a>
+      <a
+        mat-list-item
+        *ngIf="auth.isAuthenticated$ | async"
+        [routerLink]="['/bill-of-materials']"
+        routerLinkActive="active"
+      >
+        <span class="entry">
+          <span class="material-symbols-outlined"> inventory </span>
+          <span *ngIf="!isCollapsed">Bill of Materials</span>
+        </span>
+      </a>
+      <a
+        mat-list-item
+        *ngIf="auth.isAuthenticated$ | async"
+        [routerLink]="['/inventory']"
+        routerLinkActive="active"
+      >
+        <span class="entry">
+          <span class="material-symbols-outlined"> history </span>
+          <span *ngIf="!isCollapsed">Inventory Reports</span>
+        </span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

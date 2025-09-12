@@ -1,0 +1,277 @@
+<div class="page-header">
+  <div class="page-header-title">
+    <a (click)="goBack()">
+      <span class="material-symbols-outlined"> arrow_back </span>
+    </a>
+    <h1>Create Product</h1>
+  </div>
+</div>
+
+<div class="main-content">
+  <mat-card class="form-details">
+    <mat-card-content>
+      <!-- Product Create Form -->
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <!-- Sku Field -->
+          <mat-form-field
+            appearance="outline"
+            class="form-field"
+            color="accent"
+          >
+            <mat-label>Sku</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="sku"
+              placeholder="Enter Product Sku"
+              required
+            />
+            <mat-error
+              *ngIf="
+                productForm.get('sku')?.invalid &&
+                (productForm.get('sku')?.touched ||
+                  productForm.get('sku')?.dirty)
+              "
+            >
+              <span *ngIf="productForm.get('sku')?.hasError('required')"
+                >Sku is required.</span
+              >
+              <span *ngIf="productForm.get('sku')?.hasError('minlength')"
+                >Sku must be at least 8 characters.</span
+              >
+              <span *ngIf="productForm.get('sku')?.hasError('pattern')"
+                >Invalid characters used.</span
+              >
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Name Field -->
+          <mat-form-field
+            appearance="outline"
+            class="form-field"
+            color="accent"
+          >
+            <mat-label>Name</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="productName"
+              placeholder="Enter Product Name"
+              required=""
+            />
+            <mat-error
+              *ngIf="
+                productForm.get('productName')?.invalid &&
+                (productForm.get('productName')?.touched ||
+                  productForm.get('productName')?.dirty)
+              "
+            >
+              <span *ngIf="productForm.get('productName')?.hasError('required')"
+                >Name is required.</span
+              >
+              <span
+                *ngIf="productForm.get('productName')?.hasError('minlength')"
+                >Name must be at least 8 characters.</span
+              >
+              <span *ngIf="productForm.get('productName')?.hasError('pattern')"
+                >Invalid character(s) used.</span
+              >
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Category Field -->
+          <mat-form-field
+            appearance="outline"
+            class="form-field"
+            color="accent"
+          >
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="categoryId" required>
+              <mat-option
+                *ngFor="let category of productCategories"
+                [value]="category.id"
+              >
+                {{ category.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="isFieldInvalid('categoryId')">
+              <span *ngIf="productForm.get('categoryId')?.hasError('required')"
+                >Category is required.</span
+              >
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <!-- Price Field -->
+          <mat-form-field
+            appearance="outline"
+            class="form-field"
+            color="accent"
+          >
+            <mat-label>Price</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="price"
+              placeholder="Price"
+              required
+            />
+            <span matTextPrefix>$&nbsp;</span>
+            <mat-error
+              *ngIf="
+                productForm.get('price')?.invalid &&
+                (productForm.get('price')?.touched ||
+                  productForm.get('price')?.dirty)
+              "
+            >
+              <span *ngIf="productForm.get('price')?.hasError('required')"
+                >Price is required.</span
+              >
+              <span *ngIf="productForm.get('price')?.hasError('pattern')"
+                >Enter a valid price (e.g., 10.99).</span
+              >
+              <span *ngIf="productForm.get('price')?.hasError('negativeNumber')"
+                >Price must be greater than 0.</span
+              >
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Available Units -->
+          <mat-form-field
+            appearance="outline"
+            class="form-field"
+            color="accent"
+          >
+            <mat-label>Available Units</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="unitsInStock"
+              placeholder="Enter Product Quantity"
+            />
+            <mat-error
+              *ngIf="
+                productForm.get('unitsInStock')?.invalid &&
+                (productForm.get('unitsInStock')?.touched ||
+                  productForm.get('unitsInStock')?.dirty)
+              "
+            >
+              <span *ngIf="productForm.get('unitsInStock')?.hasError('pattern')"
+                >Invalid character(s) used.</span
+              >
+              <span
+                *ngIf="
+                  productForm.get('unitsInStock')?.hasError('negativeNumber')
+                "
+                >Must be greater than 0.</span
+              >
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Location Field -->
+          <mat-form-field
+            appearance="outline"
+            class="form-field"
+            color="accent"
+          >
+            <mat-label>Location</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="location"
+              placeholder="Enter Product Location"
+            />
+            <mat-error
+              *ngIf="
+                productForm.get('location')?.invalid &&
+                (productForm.get('location')?.touched ||
+                  productForm.get('location')?.dirty)
+              "
+            >
+              <span *ngIf="productForm.get('location')?.hasError('pattern')"
+                >Invalid character(s) used.</span
+              >
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <!-- Description Field -->
+          <mat-form-field
+            appearance="outline"
+            class="form-description-field"
+            subscriptSizing="dynamic"
+            color="accent"
+          >
+            <mat-label>Description</mat-label>
+            <textarea
+              matInput
+              type="text"
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="10"
+              formControlName="description"
+              placeholder="Enter Product Description"
+            ></textarea>
+            <mat-error
+              *ngIf="
+                productForm.get('description')?.invalid &&
+                (productForm.get('description')?.touched ||
+                  productForm.get('description')?.dirty)
+              "
+            >
+              <span *ngIf="productForm.get('description')?.hasError('pattern')"
+                >Invalid character(s) used.</span
+              >
+            </mat-error>
+          </mat-form-field>
+
+          <div class="check-row">
+            <!-- Kit Checkbox (change)="onKitChange($event.checked)" -->
+            <mat-checkbox
+              [checked]="kitChecked"
+              (click)="changeKitValue(kitChecked)"
+            >
+              Product Kit
+            </mat-checkbox>
+
+            <!-- Active Checkbox -->
+            <mat-checkbox
+              [checked]="activeChecked"
+              (click)="changeActiveValue(activeChecked)"
+            >
+              Active
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-button-group">
+          <div class="form-buttons">
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              style="font-size: 16px"
+              [routerLink]="['/products']"
+              routerLinkActive="active"
+            >
+              Cancel
+            </button>
+          </div>
+          <div class="form-buttons">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              style="font-size: 16px"
+              [disabled]="productForm.invalid"
+            >
+              Save Product
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

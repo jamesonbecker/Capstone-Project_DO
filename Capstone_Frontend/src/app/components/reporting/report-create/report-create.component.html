@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Create Report</h2>
+
+<mat-dialog-content class="dialog-content">
+  <h3>Top {{ selectedLimit }} Product Quantity Sold</h3>
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>Select # of Items</mat-label>
+    <mat-select [(value)]="selectedLimit">
+      @for (limit of limits; track limit) {
+      <mat-option [value]="limit.value">{{ limit.value }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-checkbox [checked]="selectDates" (click)="changeValue(selectDates)">
+    Select Dates
+  </mat-checkbox>
+  @if (selectDates == true) {
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>Choose a date range</mat-label>
+    <mat-date-range-input
+      [formGroup]="range"
+      [min]="minDate"
+      [max]="maxDate"
+      [rangePicker]="picker"
+    >
+      <input
+        matInput
+        matStartDate
+        formControlName="start"
+        placeholder="Start Date"
+      />
+      <input matInput matEndDate formControlName="end" placeholder="End Date" />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+    @if (range.controls.start.hasError('matStartDateInvalid')) {
+    <mat-error>Invalid Start Date</mat-error>
+    } @if (range.controls.end.hasError('matEndDateInvalid')) {
+    <mat-error>Invalid End Date</mat-error>
+    }
+  </mat-form-field>
+  }
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-raised-button (click)="saveDialog()" color="primary">Create</button>
+</mat-dialog-actions>

@@ -1,0 +1,69 @@
+<div class="page-header">
+  <div class="page-header-title">
+    <a (click)="goBack()">
+      <span class="material-symbols-outlined"> arrow_back </span>
+    </a>
+    <h1>Bill Of Materials</h1>
+  </div>
+</div>
+
+<div class="main-content">
+  <mat-form-field class="list-search" color="accent">
+    <mat-label>Bill of Material Search</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Search for Bill of Material by ID or Product Sku"
+    />
+  </mat-form-field>
+
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    class="mat-elevation-z8 list-table"
+  >
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let bom" class="table-cell-number">
+        {{ bom.id }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="product.sku">
+      <th mat-header-cell *matHeaderCellDef>Product Sku</th>
+      <td mat-cell *matCellDef="let bom">{{ bom.product.sku }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="billTotal">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Price</th>
+      <td mat-cell *matCellDef="let bom" class="table-cell-number">
+        {{ bom.billTotal | currency }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateCreated">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Created</th>
+      <td mat-cell *matCellDef="let bom">
+        {{ bom.dateCreated | date : "MM/dd/yyyy  h:mm a" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastUpdated">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Updated</th>
+      <td mat-cell *matCellDef="let bom">
+        {{ bom.lastUpdated | date : "MM/dd/yyyy  h:mm a" }}
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      [routerLink]="['/bill-of-materials', row.id]"
+    ></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[10, 15, 25, 50]"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>

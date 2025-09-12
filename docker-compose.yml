@@ -1,0 +1,49 @@
+services:
+  mysqldb:
+    image: mysql:8.0.39
+    container_name: mysqldb
+    environment:
+      MYSQL_ROOT_PASSWORD: T3chn0l0gy1335!*
+      MYSQL_DATABASE: inventory_management_db
+      MYSQL_USER: bjameson
+      MYSQL_PASSWORD: #1CardsFan
+    volumes:
+      - ./create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./Capstone_Backend
+      dockerfile: Dockerfile
+    container_name: spring-backend
+    restart: unless-stopped
+    environment:
+      MYSQL_HOST: mysqldb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: T3chn0l0gy1335!*
+      MYSQL_PORT: 3306
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ./Capstone_Frontend
+      dockerfile: Dockerfile
+    container_name: angular-frontend
+    restart: unless-stopped
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+
+volumes:
+  db_data:

@@ -1,0 +1,234 @@
+<div class="form-container">
+  <mat-card class="form-details">
+    <mat-card-title>Part Details</mat-card-title>
+    <mat-card-content>
+      <!-- Part Details Form -->
+      <form [formGroup]="partForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <!-- Sku Field -->
+          <mat-form-field
+            appearance="outline"
+            class="form-field"
+            color="accent"
+          >
+            <mat-label>Sku</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="sku"
+              placeholder="Enter Part Sku"
+              required
+            />
+            <mat-error
+              *ngIf="
+                partForm.get('sku')?.invalid &&
+                (partForm.get('sku')?.touched || partForm.get('sku')?.dirty)
+              "
+            >
+              <span *ngIf="partForm.get('sku')?.hasError('required')"
+                >Sku is required.</span
+              >
+              <span *ngIf="partForm.get('sku')?.hasError('minlength')"
+                >Sku must be at least 8 characters.</span
+              >
+              <span *ngIf="partForm.get('sku')?.hasError('pattern')"
+                >Invalid characters used.</span
+              >
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Name Field -->
+          <mat-form-field
+            appearance="outline"
+            class="form-field"
+            color="accent"
+          >
+            <mat-label>Name</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="name"
+              placeholder="Enter Part Name"
+              required
+            />
+            <mat-error
+              *ngIf="
+                partForm.get('name')?.invalid &&
+                (partForm.get('name')?.touched || partForm.get('name')?.dirty)
+              "
+            >
+              <span *ngIf="partForm.get('name')?.hasError('required')"
+                >Name is required.</span
+              >
+              <span *ngIf="partForm.get('name')?.hasError('minlength')"
+                >Name must be at least 8 characters.</span
+              >
+              <span *ngIf="partForm.get('name')?.hasError('pattern')"
+                >Invalid character(s) used.</span
+              >
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <!-- Price Field -->
+          <mat-form-field
+            appearance="outline"
+            class="form-field"
+            color="accent"
+          >
+            <mat-label>Price</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="price"
+              placeholder="Price"
+              required
+            />
+            <span matTextPrefix>$&nbsp;</span>
+            <mat-error
+              *ngIf="
+                partForm.get('price')?.invalid &&
+                (partForm.get('price')?.touched || partForm.get('price')?.dirty)
+              "
+            >
+              <span *ngIf="partForm.get('price')?.hasError('required')"
+                >Price is required.</span
+              >
+              <span *ngIf="partForm.get('price')?.hasError('pattern')"
+                >Enter a valid price (e.g., 10.99).</span
+              >
+              <span *ngIf="partForm.get('price')?.hasError('negativeNumber')"
+                >Price must be greater than 0.</span
+              >
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Available Units -->
+          <mat-form-field
+            appearance="outline"
+            class="form-field"
+            color="accent"
+          >
+            <mat-label>Available Units</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="unitsInStock"
+              placeholder="Enter Part Quantity"
+            />
+            <mat-error
+              *ngIf="
+                partForm.get('unitsInStock')?.invalid &&
+                (partForm.get('unitsInStock')?.touched ||
+                  partForm.get('unitsInStock')?.dirty)
+              "
+            >
+              <span *ngIf="partForm.get('unitsInStock')?.hasError('pattern')"
+                >Invalid character(s) used.</span
+              >
+              <span
+                *ngIf="partForm.get('unitsInStock')?.hasError('negativeNumber')"
+                >Must be greater than 0.</span
+              >
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Location Field -->
+          <mat-form-field
+            appearance="outline"
+            class="form-field"
+            color="accent"
+          >
+            <mat-label>Location</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="location"
+              placeholder="Enter Part Location"
+            />
+            <mat-error
+              *ngIf="
+                partForm.get('location')?.invalid &&
+                (partForm.get('location')?.touched ||
+                  partForm.get('location')?.dirty)
+              "
+            >
+              <span *ngIf="partForm.get('location')?.hasError('pattern')"
+                >Invalid character(s) used.</span
+              >
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <!-- Description Field -->
+          <mat-form-field
+            appearance="outline"
+            class="form-description-field"
+            subscriptSizing="dynamic"
+            color="accent"
+          >
+            <mat-label>Description</mat-label>
+            <textarea
+              matInput
+              type="text"
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="10"
+              formControlName="description"
+              placeholder="Enter Part Description"
+            ></textarea>
+            <mat-error
+              *ngIf="
+                partForm.get('description')?.invalid &&
+                (partForm.get('description')?.touched ||
+                  partForm.get('description')?.dirty)
+              "
+            >
+              <span *ngIf="partForm.get('description')?.hasError('pattern')"
+                >Invalid character(s) used.</span
+              >
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-button-group">
+          <div class="form-buttons">
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              style="font-size: 16px"
+              [routerLink]="['/parts']"
+              routerLinkActive="active"
+            >
+              Cancel
+            </button>
+          </div>
+          <div class="form-buttons">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              style="font-size: 16px"
+              [disabled]="partForm.invalid"
+            >
+              Save Part
+            </button>
+          </div>
+        </div>
+        <div class="form-delete-button">
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="onDelete()"
+            style="font-size: 16px"
+          >
+            Delete
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

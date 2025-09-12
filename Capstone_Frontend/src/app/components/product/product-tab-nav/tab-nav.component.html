@@ -1,0 +1,29 @@
+<div class="page-header">
+  <div class="page-header-title">
+    <a (click)="goBack()">
+      <span class="material-symbols-outlined"> arrow_back </span>
+    </a>
+    <h1>{{ selectedProductSku }}</h1>
+  </div>
+</div>
+
+<div class="main-content">
+  <mat-tab-group backgroundColor="primary" dynamicHeight>
+    <mat-tab label="Details">
+      <ng-template matTabContent>
+        <app-product-details></app-product-details>
+      </ng-template>
+    </mat-tab>
+    <mat-tab *ngIf="isKit" label="Bill of Materials">
+      <ng-template matTabContent>
+        <app-product-bill-details></app-product-bill-details>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Inventory">
+      <ng-template matTabContent>
+        <app-product-inventory></app-product-inventory>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+  <router-outlet></router-outlet>
+</div>
