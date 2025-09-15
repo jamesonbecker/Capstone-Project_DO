@@ -7,7 +7,7 @@ import { ProductCategory } from '../common/product-category';
   providedIn: 'root',
 })
 export class ProductCategoryService {
-  private baseUrl = 'http://localhost:8080/api/product-category';
+  private baseUrl = 'http://jamesonbecker.com/api/product-category';
 
   constructor(private httpClient: HttpClient) {}
 

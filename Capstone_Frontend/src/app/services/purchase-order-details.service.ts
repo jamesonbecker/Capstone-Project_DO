@@ -7,7 +7,7 @@ import { PurchaseOrderDetails } from '../common/purchase-order-details';
   providedIn: 'root'
 })
 export class PurchaseOrderDetailsService {
-  private baseUrl = 'http://localhost:8080/api/purchase-order-details';
+  private baseUrl = 'http://jamesonbecker.com/api/purchase-order-details';
   private projection = '?projection=poDetailProjection';
 
   constructor(private httpClient: HttpClient) {}
