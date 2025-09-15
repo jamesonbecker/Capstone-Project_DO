@@ -7,7 +7,7 @@ import { BillOfMaterialDetail } from '../common/bill-of-material-detail';
   providedIn: 'root',
 })
 export class BillOfMaterialDetailService {
-  private baseUrl = 'http://jamesonbecker.com/api/bill-of-material-details';
+  private baseUrl = 'https://jamesonbecker.com/api/bill-of-material-details';
   private projection = `?projection=bmDetailsProjection`;
 
   constructor(private httpClient: HttpClient) {}
