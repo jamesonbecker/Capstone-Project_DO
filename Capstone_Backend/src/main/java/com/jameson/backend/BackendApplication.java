@@ -19,7 +19,7 @@ public class BackendApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://jamesonbecker.com:4200")
+                        .allowedOrigins("https://jamesonbecker.com")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*");
             }
