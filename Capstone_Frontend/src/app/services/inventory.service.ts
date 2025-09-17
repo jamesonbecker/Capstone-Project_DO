@@ -7,7 +7,7 @@ import { Inventory } from '../common/inventory';
   providedIn: 'root',
 })
 export class InventoryService {
-  private baseUrl = 'http://jamesonbecker.com/api/inventory';
+  private baseUrl = 'https://jamesonbecker.com/api/inventory';
 
   constructor(private httpclient: HttpClient) {}
 

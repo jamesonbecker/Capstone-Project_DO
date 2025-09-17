@@ -7,7 +7,7 @@ import { PurchaseOrders } from '../common/purchase-orders';
   providedIn: 'root'
 })
 export class PurchaseOrdersService {
-  private baseUrl = 'http://jamesonbecker.com/api/purchase-orders';
+  private baseUrl = 'https://jamesonbecker.com/api/purchase-orders';
 
   constructor(private httpClient: HttpClient) { }
 
