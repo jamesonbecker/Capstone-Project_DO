@@ -7,7 +7,7 @@ import { Products } from '../common/products';
   providedIn: 'root',
 })
 export class ProductsService {
-  private baseUrl = 'https://jamesonbecker.com/api/products';
+  private baseUrl = 'https://imwa-project-app-2gyjc.ondigitalocean.app/api/products';
 
   constructor(private httpClient: HttpClient) {}
 

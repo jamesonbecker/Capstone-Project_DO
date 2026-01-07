@@ -7,7 +7,7 @@ import { Inventory } from '../common/inventory';
   providedIn: 'root',
 })
 export class InventoryService {
-  private baseUrl = 'https://jamesonbecker.com/api/inventory';
+  private baseUrl = 'https://imwa-project-app-2gyjc.ondigitalocean.app/api/inventory';
 
   constructor(private httpclient: HttpClient) {}
 

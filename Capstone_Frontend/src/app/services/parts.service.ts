@@ -7,7 +7,7 @@ import { Parts } from '../common/parts';
   providedIn: 'root',
 })
 export class PartsService {
-  private baseUrl = 'https://jamesonbecker.com/api/parts';
+  private baseUrl = 'https://imwa-project-app-2gyjc.ondigitalocean.app/api/parts';
 
   constructor(private httpClient: HttpClient) {}
 

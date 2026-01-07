@@ -7,7 +7,7 @@ import { BillOfMaterials } from '../common/bill-of-materials';
   providedIn: 'root',
 })
 export class BillOfMaterialService {
-  private baseUrl = 'https://jamesonbecker.com/api/bill-of-materials';
+  private baseUrl = 'https://imwa-project-app-2gyjc.ondigitalocean.app/api/bill-of-materials';
 
   constructor(private httpClient: HttpClient) {}
 
