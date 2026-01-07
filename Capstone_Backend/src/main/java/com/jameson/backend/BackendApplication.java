@@ -19,7 +19,7 @@ public class BackendApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://jamesonbecker.com:443", "https://162.159.140.98:443", "https://172.66.0.96:443")
+                        .allowedOrigins("https://jamesonbecker.com:443", "https://162.159.140.98:443", "https://172.66.0.96:443", "https://imwa-project-app-2gyjc.ondigitalocean.app")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*");
             }
