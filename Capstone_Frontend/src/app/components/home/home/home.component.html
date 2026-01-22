@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="form-container">
     <ng-container
-      *ngIf="auth.isAuthenticated$ | async; then loggedOut; else loggedIn"
+      *ngIf="auth.isAuthenticated$ | async; then loggedIn;"
     ></ng-container>
     <ng-template #loggedIn>
       <div class="home-header">

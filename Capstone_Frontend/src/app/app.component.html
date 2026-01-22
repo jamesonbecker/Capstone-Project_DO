@@ -8,7 +8,7 @@
     <h1>Inventory Management Web Application</h1>
   }
   <div class="spacer"></div>
-  <ng-container *ngIf="auth.isAuthenticated$ | async; then loggedOut; else loggedIn"></ng-container>
+  <ng-container *ngIf="auth.isAuthenticated$ | async; then loggedIn"></ng-container>
   <ng-template #loggedIn>
     <a mat-raised-button class="log-button" (click)="login()">Log In</a>
   </ng-template>
