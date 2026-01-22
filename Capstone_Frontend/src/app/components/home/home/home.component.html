@@ -1,23 +1,6 @@
 <div class="main-content">
   <div class="form-container">
-    <ng-container
-      *ngIf="auth.isAuthenticated$ | async; then loggedOut; else loggedIn"
-    ></ng-container>
-    <ng-template #loggedIn>
-      <div class="home-header">
-        <a (click)="loginWithRedirect()">
-          <mat-card appearance="outlined" class="home-page-card">
-            <mat-card-header>
-              <mat-card-title>Log In</mat-card-title>
-              <mat-card-subtitle
-                >Please log in to view data.</mat-card-subtitle
-              >
-            </mat-card-header>
-          </mat-card>
-        </a>
-      </div>
-    </ng-template>
-    <ng-template #loggedOut>
+    
       <div class="home-header">
         <h1>Inventory Management</h1>
         <h3>Select an option below, or choose from the menu on the left</h3>
@@ -91,6 +74,5 @@
         </mat-card>
         <router-outlet></router-outlet>
       </div>
-    </ng-template>
   </div>
 </div>
