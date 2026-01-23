@@ -8,13 +8,6 @@
     <h1>Inventory Management Web Application</h1>
   }
   <div class="spacer"></div>
-  <ng-container *ngIf="auth.isAuthenticated$ | async; then loggedOut; else loggedIn"></ng-container>
-  <ng-template #loggedIn>
-    <a mat-raised-button class="log-button" (click)="login()">Log In</a>
-  </ng-template>
-  <ng-template #loggedOut>
-    <a mat-raised-button class="log-button" (click)="logout()">Logout</a>
-  </ng-template>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container" autosize>
@@ -33,7 +26,6 @@
       </a>
       <a
         mat-list-item
-        *ngIf="auth.isAuthenticated$ | async"
         [routerLink]="['/products']"
         routerLinkActive="active"
       >
@@ -44,7 +36,6 @@
       </a>
       <a
         mat-list-item
-        *ngIf="auth.isAuthenticated$ | async"
         [routerLink]="['/parts']"
         routerLinkActive="active"
       >
@@ -55,7 +46,6 @@
       </a>
       <a
         mat-list-item
-        *ngIf="auth.isAuthenticated$ | async"
         [routerLink]="['/sales-orders']"
         routerLinkActive="active"
       >
@@ -66,7 +56,6 @@
       </a>
       <a
         mat-list-item
-        *ngIf="auth.isAuthenticated$ | async"
         [routerLink]="['/purchase-orders']"
         routerLinkActive="active"
       >
@@ -77,7 +66,6 @@
       </a>
       <a
         mat-list-item
-        *ngIf="auth.isAuthenticated$ | async"
         [routerLink]="['/bill-of-materials']"
         routerLinkActive="active"
       >
@@ -88,7 +76,6 @@
       </a>
       <a
         mat-list-item
-        *ngIf="auth.isAuthenticated$ | async"
         [routerLink]="['/inventory']"
         routerLinkActive="active"
       >

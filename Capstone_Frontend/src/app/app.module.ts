@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthModule, AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { environment as env } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -108,12 +107,6 @@ import { InventoryService } from './services/inventory.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AuthModule.forRoot({
-      ...env.auth,
-      httpInterceptor: {
-        ...env.httpInterceptor,
-      },
-    }),
     AppRoutingModule,
 ],
   providers: [
@@ -127,11 +120,6 @@ import { InventoryService } from './services/inventory.service';
     BillOfMaterialDetailService,
     PurchaseOrdersService,
     PurchaseOrderDetailsService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthHttpInterceptor,
-      multi: true,
-    },
     {
       provide: Window,
       useValue: window,

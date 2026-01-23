@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '@auth0/auth0-angular';
 import { ProductTabNavComponent } from './components/product/product-tab-nav/tab-nav.component';
 import { SalesOrderListComponent } from './components/sales-order/sales-order-list/sales-order-list.component';
 import { ProductListComponent } from './components/product/product-list/product-list.component';
@@ -45,12 +44,12 @@ export const appRoutes: Routes = [
   { path: 'purchase-orders/:id', component: PurchaseOrderDetailsComponent },
 
   { path: 'home', component: HomeComponent },
-  { path: 'products', component: ProductListComponent, canActivate: [AuthGuard] },
-  { path: 'sales-orders', component: SalesOrderListComponent, canActivate: [AuthGuard] },
-  { path: 'parts', component: PartsListComponent, canActivate: [AuthGuard] },
-  { path: 'purchase-orders', component: PurchaseOrderListComponent, canActivate: [AuthGuard] },
-  { path: 'bill-of-materials', component: BillOfMaterialListComponent, canActivate: [AuthGuard] },
-  { path: 'inventory', component: ReportsComponent, canActivate: [AuthGuard] },
+  { path: 'products', component: ProductListComponent},
+  { path: 'sales-orders', component: SalesOrderListComponent},
+  { path: 'parts', component: PartsListComponent },
+  { path: 'purchase-orders', component: PurchaseOrderListComponent },
+  { path: 'bill-of-materials', component: BillOfMaterialListComponent },
+  { path: 'inventory', component: ReportsComponent },
   { path: '', component: HomeComponent, pathMatch: 'full' },
 ];
 
